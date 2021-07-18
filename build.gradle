@@ -2,7 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.2'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
-	 id 'io.freefair.lombok' version '6.0.0-m2'
+	id 'io.freefair.lombok' version '6.0.0-m2'
 }
 
 group = 'pl.com.bohdziewicz'
@@ -20,8 +20,14 @@ dependencies {
 
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 test {
 	useJUnitPlatform()
+	
+	testLogging.showStandardStreams = true
+	testLogging {
+        events "passed", "skipped", "failed"}
 }
