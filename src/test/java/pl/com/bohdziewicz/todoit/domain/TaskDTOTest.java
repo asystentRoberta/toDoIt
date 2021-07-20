@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TaskDtoTest {
+class TaskDTOTest {
 
-    TaskDto taskDto;
+    TaskDTO taskDto;
 
     @BeforeEach
     public void setupTaskDto() {
 
-        taskDto = new TaskDto(3L, "Dto task no1", "Some info");
+        taskDto = new TaskDTO(3L, "Dto task no1", "Some info");
     }
 
     @DisplayName("Lets check lombok getters")
