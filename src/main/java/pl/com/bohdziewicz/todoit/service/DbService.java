@@ -22,4 +22,15 @@ public class DbService {
 
         return taskRepository.findAll();
     }
+
+    public void saveSingleTask(Task task) {
+
+        taskRepository.save(task);
+    }
+
+    public Task getDtoTaskById(Long id) {
+
+        return taskRepository.findById(id).orElseThrow();
+    }
 }
+

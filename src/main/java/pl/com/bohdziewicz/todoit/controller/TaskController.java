@@ -2,8 +2,11 @@ package pl.com.bohdziewicz.todoit.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.com.bohdziewicz.todoit.domain.TaskDTO;
@@ -32,9 +35,9 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/tasks/{taskId}")
-    public TaskDTO getTask(Long taskId) {
+    public TaskDTO getTask(@PathVariable Long taskId) {
 
-        return new TaskDTO(1L, "Test task", "Test task content");
+        return taskMapper.toDtoTask(dbService.getDtoTaskById(taskId));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/tasks/{taskId}")
@@ -49,7 +52,8 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/tasks", consumes = APPLICATION_JSON_VALUE)
-    public void createTask(TaskDTO taskDto) {
+    public void createTask(@RequestBody TaskDTO taskDto) {
 
+        dbService.saveSingleTask(taskMapper.toTaskMap(taskDto));
     }
 }
