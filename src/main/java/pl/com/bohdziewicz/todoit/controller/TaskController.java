@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import pl.com.bohdziewicz.todoit.domain.TaskDTO;
@@ -35,9 +34,11 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/tasks/{taskId}")
-    public TaskDTO getTask(@PathVariable Long taskId) {
+    public TaskDTO getTask(@PathVariable Long taskId) throws TaskNotFoundException {
 
-        return taskMapper.toDtoTask(dbService.getDtoTaskById(taskId));
+        return taskMapper.toDtoTask(
+                dbService.getDtoTaskById(taskId)
+                        .orElseThrow(() -> new TaskNotFoundException("Task not found")));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/tasks/{taskId}")

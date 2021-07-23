@@ -1,6 +1,7 @@
 package pl.com.bohdziewicz.todoit.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -28,9 +29,9 @@ public class DbService {
         taskRepository.save(task);
     }
 
-    public Task getDtoTaskById(Long id) {
+    public Optional<Task> getDtoTaskById(Long id) {
 
-        return taskRepository.findById(id).orElseThrow();
+        return taskRepository.findById(id);
     }
 }
 
